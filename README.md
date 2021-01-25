@@ -1,4 +1,4 @@
-# Bot Discord 
+# Booster Bot Telegram: FollowForFollow Instagram
 
 ## Table des matières:
 * [Introduction]
