@@ -428,10 +428,10 @@ def main() -> None:
     load_settings()
     initiate_db()
     insta_bot = Client()
-    try:
-        insta_bot.login(settings['insta_username'], settings['insta_password'])
-    except exceptions.SentryBlock:
-        insta_bot.relogin()
+#     try:
+#         insta_bot.login(settings['insta_username'], settings['insta_password'])
+#     except exceptions.SentryBlock:
+#         insta_bot.relogin()
     logging.basicConfig(format='[%(asctime)s] - %(message)s', datefmt='%d-%b-%y %H:%M:%S',
                         level=logging.INFO)  # initialize logging module and format. exclude debug messages
     updater = Updater(settings['TOKEN'], use_context=True)
