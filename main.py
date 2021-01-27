@@ -428,6 +428,7 @@ def main() -> None:
     load_settings()
     initiate_db()
     insta_bot = Client()
+    insta_bot.set_proxy('socks5://167.99.199.139:1080')
     try:
         insta_bot.login(settings['insta_username'], settings['insta_password'])
     except exceptions.SentryBlock:
