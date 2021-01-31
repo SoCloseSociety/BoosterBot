@@ -427,15 +427,29 @@ def main() -> None:
     global insta_bot
     load_settings()
     initiate_db()
-    insta_bot = Client()
-    insta_bot.request_timeout = 5
-    insta_bot.set_proxy('socks5://167.99.199.139:1080')
-    try:
-        insta_bot.login(settings['insta_username'], settings['insta_password'])
-    except exceptions.SentryBlock:
-        insta_bot.relogin()
     logging.basicConfig(format='[%(asctime)s] - %(message)s', datefmt='%d-%b-%y %H:%M:%S',
                         level=logging.INFO)  # initialize logging module and format. exclude debug messages
+    insta_bot = Client()
+    bot.request_timeout = 5
+    succ = False
+    relogin = True
+    try:
+        succ = bot.login(username=settings["insta_username"], password=settings["insta_password"])
+        print(succ)
+    except exceptions.SentryBlock:
+        for i in range(5):
+            print("Try #"+str(i))
+            try:
+                succ = bot.login(username=username, password=password, relogin=relogin)
+                print(succ)
+            except exceptions.SentryBlock:
+                pass
+            except exceptions.ReloginAttemptExceeded:
+                relogin = False
+            except:
+                logging.error("Couldn't establish connection to Instagram account")
+                sys.exit("Couldn't establish connection to Instagram account")
+            time.sleep(random.randint(3, 5))
     updater = Updater(settings['TOKEN'], use_context=True)
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('update_points', update_points))
