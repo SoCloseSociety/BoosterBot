@@ -432,7 +432,6 @@ def main() -> None:
     logging.basicConfig(format='[%(asctime)s] - %(message)s', datefmt='%d-%b-%y %H:%M:%S',
                         level=logging.INFO)  # initialize logging module and format. exclude debug messages
     insta_bot = Client()
-    insta_bot.request_timeout = 5
     succ = False
     relogin = True
     try:
