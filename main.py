@@ -13,6 +13,7 @@ import logging
 import instagrapi
 import datetime as dt
 import threading
+import random
 
 
 def load_settings() -> None:
@@ -430,17 +431,17 @@ def main() -> None:
     logging.basicConfig(format='[%(asctime)s] - %(message)s', datefmt='%d-%b-%y %H:%M:%S',
                         level=logging.INFO)  # initialize logging module and format. exclude debug messages
     insta_bot = Client()
-    bot.request_timeout = 5
+    insta_bot.request_timeout = 5
     succ = False
     relogin = True
     try:
-        succ = bot.login(username=settings["insta_username"], password=settings["insta_password"])
+        succ = insta_bot.login(username=settings["insta_username"], password=settings["insta_password"])
         print(succ)
     except exceptions.SentryBlock:
         for i in range(5):
             print("Try #"+str(i))
             try:
-                succ = bot.login(username=username, password=password, relogin=relogin)
+                succ = insta_bot.login(username=username, password=password, relogin=relogin)
                 print(succ)
             except exceptions.SentryBlock:
                 pass
