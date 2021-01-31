@@ -438,7 +438,7 @@ def main() -> None:
         succ = insta_bot.login(username=settings["insta_username"], password=settings["insta_password"])
         print(succ)
     except exceptions.SentryBlock:
-        for i in range(5):
+        for i in range(10):
             print("Try #"+str(i))
             try:
                 succ = insta_bot.login(username=username, password=password, relogin=relogin)
@@ -448,8 +448,7 @@ def main() -> None:
             except exceptions.ReloginAttemptExceeded:
                 relogin = False
             except:
-                logging.error("Couldn't establish connection to Instagram account")
-                sys.exit("Couldn't establish connection to Instagram account")
+                pass
             time.sleep(random.randint(3, 5))
     updater = Updater(settings['TOKEN'], use_context=True)
     updater.dispatcher.add_handler(CommandHandler('start', start))
