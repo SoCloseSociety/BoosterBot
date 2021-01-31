@@ -440,10 +440,13 @@ def main() -> None:
         print(succ)
     except exceptions.SentryBlock:
         for i in range(10):
-            print("Try #"+str(i))
+            print("Try #" + str(i))
             try:
-                succ = insta_bot.login(username=username, password=password, relogin=relogin)
-                print(succ)
+                succ = insta_bot.login(username=settings["insta_username"], password=settings["insta_password"],
+                                       relogin=relogin)
+                if succ:
+                    print("Connection established!")
+                    break
             except exceptions.SentryBlock:
                 pass
             except exceptions.ReloginAttemptExceeded:
