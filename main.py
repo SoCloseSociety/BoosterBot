@@ -1,4 +1,4 @@
-#! Python3
+
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram.ext import ConversationHandler, JobQueue
@@ -248,7 +248,7 @@ def get_profile_to_follow_thread(update, context) -> None:
     conn = sqlite3.connect("bot_data.db")
     c = conn.cursor()
     with conn:
-        c.execute("SELECT profile_link, user_id FROM users WHERE (balance >= 5 AND user_id != :user_id) "
+        c.execute("SELECT profile_link, user_id FROM users WHERE (balance >= -1 AND user_id != :user_id) "
                   "ORDER BY RANDOM() ", {'user_id': current_user})
         profiles_to_follow = c.fetchall()
         c.execute("SELECT profile_link FROM users WHERE (user_id = :user_id)", {'user_id': current_user})
